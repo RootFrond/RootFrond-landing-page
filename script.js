@@ -1,5 +1,5 @@
 /*
-  cocoNet INTERACTIONS
+  RootFrond INTERACTIONS
   ------------------------------------------------------------
   - Updates the footer year.
   - Opens/closes the responsive mobile navigation.
@@ -21,7 +21,7 @@
 
   // Storage can be disabled in some browser modes, so always guard localStorage access.
   const storedTheme = (() => {
-    try { return localStorage.getItem("coconet-theme"); }
+    try { return localStorage.getItem("rootfrond-theme"); }
     catch (_) { return null; }
   })();
 
@@ -44,7 +44,7 @@
     themeButton.addEventListener("click", () => {
       const nextTheme = root.dataset.theme === "dark" ? "light" : "dark";
       setTheme(nextTheme);
-      try { localStorage.setItem("coconet-theme", nextTheme); }
+      try { localStorage.setItem("rootfrond-theme", nextTheme); }
       catch (_) { /* Theme still works for this page view if storage is unavailable. */ }
     });
   }
@@ -226,9 +226,40 @@ document.querySelectorAll(".coconet-faq .faq-card").forEach((card) => {
         window.lucide.createIcons();
       }
 
-      document.getElementById("pilot-registration-form").addEventListener("submit", function (event) {
+      const form = document.getElementById("pilot-registration-form");
+      if (!form) return;
+      form.addEventListener("submit", function (event) {
         event.preventDefault();
-        alert("Thank you! You have been successfully added to the cocoNet launch waitlist and beta pilot program. Check your inbox or WhatsApp shortly.");
+        if (!form.reportValidity()) return;
+        const fields = new FormData(form);
+        const lines = [
+          "RootFrond project interest request",
+          "Name: " + String(fields.get("full-name") || "").trim(),
+          "Farm / institution: " + String(fields.get("farm-name") || "").trim(),
+          "Country / region: " + String(fields.get("country-region") || "").trim(),
+          "Palm scale: " + String(fields.get("planted-palms") || "").trim(),
+          "Contact: " + String(fields.get("contact-endpoint") || "").trim(),
+          "",
+          "This local file is not automatically sent to the RootFrond team."
+        ];
+        const blob = new Blob([lines.join("\n")], { type: "text/plain;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "RootFrond-Interest-Request.txt";
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        window.setTimeout(() => URL.revokeObjectURL(url), 1200);
+        let status = form.querySelector(".rootfrond-form-status");
+        if (!status) {
+          status = document.createElement("p");
+          status.className = "rootfrond-form-status";
+          status.setAttribute("role", "status");
+          status.setAttribute("aria-live", "polite");
+          form.querySelector(".submit-button")?.insertAdjacentElement("afterend", status);
+        }
+        status.textContent = "Your request was downloaded. Share the file with the RootFrond team using their approved contact channel; this demo has no connected inbox.";
       });
     });
 
@@ -242,7 +273,7 @@ document.querySelectorAll(".coconet-faq .faq-card").forEach((card) => {
 (() => {
   "use strict";
 
-  /* 1. Procedural coconut-frond SVG generator */
+  /* 1. Procedural coconut-frond SVG generator (illustrative nutrient cross-check) */
   const scanEl = document.getElementById("scan");
   if (scanEl) {
     let seed = 7;
@@ -625,7 +656,7 @@ document.querySelectorAll(".coconet-faq .faq-card").forEach((card) => {
 
 
 // Janani Script
-// The reference design is an illustration, not a connected field-deployment tool.
+// The nutrient workflow panel is an illustration, not a connected field-deployment tool.
 (() => {
   "use strict";
   const section = document.getElementById("disease-detection");
@@ -635,7 +666,7 @@ document.querySelectorAll(".coconet-faq .faq-card").forEach((card) => {
   if (deployButton && message) {
     deployButton.addEventListener("click", () => {
       message.hidden = false;
-      message.textContent = "This is a visual demo only. No image is analysed, and no model, live telemetry, or deployment service is connected.";
+      message.textContent = "This is a concept demonstration. No live NPK sensor, leaf-image model, calibration service or fertilizer engine is connected.";
     });
   }
 })();

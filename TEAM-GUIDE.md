@@ -1,4 +1,4 @@
-# cocoNet Team Guide
+# RootFrond Team Guide
 
 ## Shared ownership rules
 To reduce Git merge conflicts, one person should own `index.html` integration. Other team members can develop their section in separate files/branches, then the integration owner pastes each section into the matching placeholder.
@@ -6,10 +6,10 @@ To reduce Git merge conflicts, one person should own `index.html` integration. O
 ### Suggested section ownership
 - `overview` — project overview and problem summary
 - `how-it-works` — workflow / how the system works
-- `disease-detection` — detection feature and prototype explanation
-- `farmer-stories` — validated interview findings and farmer insights
+- `disease-detection` — RootFrond NPK sensor + leaf-image analysis feature (legacy ID kept)
+- `farmer-stories` — hypothetical farmer scenarios / validated findings when available
 - `team` — team profiles and responsibilities
-- `early-access` — contact or call-to-action (optional)
+- `early-access` — project interest form / pilot information
 
 ## What each member should send to the integration owner
 1. One `<section id="...">...</section>` block only.
@@ -32,4 +32,14 @@ The navigation link and section ID must match exactly:
 - [ ] Check for horizontal scrolling at 320px width.
 - [ ] Check that every navigation/footer anchor reaches an existing ID.
 - [ ] Confirm images have descriptive `alt` text.
-- [ ] Confirm claims, statistics, and farmer quotes are sourced and accurate.
+- [ ] Confirm claims and statistics are sourced; hypothetical scenarios are not represented as interview quotes.
+
+
+## RootFrond section ownership — preserved
+- Anupama: `overview` and `faq` (HTML, Anupama CSS, Anupama JS).
+- Janith: `how-it-works` (HTML, Janith CSS, Janith JS flow).
+- Janani: `disease-detection` (ID deliberately kept; displayed as Nutrient Analysis).
+- Sudil: `farmer-stories` (ID deliberately kept; displayed as Farmer Insights).
+- Isindu: `team`, `early-access`, and app-preview content.
+
+Keep each member's `SECTION START/END`, `Styles`, and `Script` comments intact.

@@ -1815,6 +1815,126 @@ a:focus-visible {
   }
 }
 
+
+
+/* ==========================================================
+   ROOTFROND - FINAL OVERVIEW BACKGROUND FIX
+   Full section background with more visible coconut trees
+   ========================================================== */
+
+/* 1. Apply the background to the ENTIRE Overview section */
+#overview.coconet-overview {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+
+  background-color: #ffffff;
+
+  background-image:
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.99) 0%,
+      rgba(255, 255, 255, 0.80) 25%,
+      rgba(255, 255, 255, 0.70) 50%,
+      rgba(255, 255, 255, 0.04) 75%,
+      rgba(255, 255, 255, 0.00) 100%
+    ),
+    url("images/rootfrond-overview-bg.jpg");
+
+  background-size: cover;
+  background-position: center 65%;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+}
+
+/* 2. REMOVE old background attached only to the hero */
+#overview.coconet-overview .overview-hero::before {
+  content: none !important;
+  display: none !important;
+}
+
+/* 3. Make sure the original hero stays transparent */
+#overview.coconet-overview .overview-hero {
+  background: transparent;
+}
+
+/* 4. Keep Overview content over the image */
+#overview.coconet-overview .section-container {
+  position: relative;
+  z-index: 1;
+  background: transparent;
+}
+
+/* 5. Make the top announcement slightly transparent */
+#overview.coconet-overview .overview-alert {
+  position: relative;
+  z-index: 2;
+  background: rgba(241, 250, 245, 0.90);
+}
+
+/* 6. Let the image continue behind the statistics bar */
+#overview.coconet-overview .overview-highlights {
+  position: relative;
+  z-index: 1;
+  background: rgba(6, 59, 44, 0.90);
+}
+
+/* 7. Keep text readable over the image */
+#overview.coconet-overview .overview-content {
+  position: relative;
+  z-index: 2;
+}
+
+/* 8. MOBILE */
+@media (max-width: 900px) {
+  #overview.coconet-overview {
+    background-image:
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.65) 0%,
+        rgba(255, 255, 255, 0.48) 45%,
+        rgba(255, 255, 255, 0.18) 100%
+      ),
+      url("images/rootfrond-overview-bg.png");
+
+    background-size: cover;
+    background-position: center center;
+  }
+}
+
+/* 9. DARK MODE */
+:root[data-theme="dark"] #overview.coconet-overview {
+  background-color: #0d1511;
+
+  background-image:
+    linear-gradient(
+      90deg,
+      rgba(13, 21, 17, 0.78) 0%,
+      rgba(13, 21, 17, 0.55) 30%,
+      rgba(13, 21, 17, 0.18) 65%,
+      rgba(13, 21, 17, 0.02) 100%
+    ),
+    url("images/rootfrond-overview-bg.png");
+
+  background-size: cover;
+  background-position: center 65%;
+}
+
+:root[data-theme="dark"]
+#overview.coconet-overview .overview-alert {
+  background: rgba(18, 30, 24, 0.90);
+}
+
+:root[data-theme="dark"]
+#overview.coconet-overview .overview-highlights {
+  background: rgba(8, 31, 23, 0.90);
+}
+
+/* ==========================================================
+   END OVERVIEW BACKGROUND FIX
+   ========================================================== */
+
+
 /* ===== End 3D disease scanner ===== */
 
 
@@ -2170,6 +2290,56 @@ a:focus-visible {
   color: #63e6b0;
   border: 1px solid #63e6af60;
 }
+
+
+/* RootFrond (Anupama): coconut grove image behind the ORIGINAL overview design.
+   FIX: No opacity on the entire background layer. Fade ONLY the left/text area.
+   The right side stays vivid and the original phone, layout and content are untouched. */
+.coconet-overview .overview-hero {
+  position: relative;
+  isolation: isolate;
+}
+
+.coconet-overview .overview-hero::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  inset: -10% -7%;
+  background-image:
+    linear-gradient(90deg,
+      rgba(255,255,255,.98) 0%,
+      rgba(255,255,255,.91) 26%,
+      rgba(255,255,255,.60) 46%,
+      rgba(255,255,255,.12) 66%,
+      rgba(255,255,255,0) 80%),
+    url("images/rootfrond-overview-bg.png");
+  background-size: cover;
+  background-position: right center;
+  background-repeat: no-repeat;
+  opacity: 1;
+}
+
+:root[data-theme="dark"] .coconet-overview .overview-hero::before {
+  background-image:
+    linear-gradient(90deg,
+      rgba(13,21,17,.98) 0%,
+      rgba(13,21,17,.92) 26%,
+      rgba(13,21,17,.62) 46%,
+      rgba(13,21,17,.13) 66%,
+      rgba(13,21,17,0) 80%),
+    url("images/rootfrond-overview-bg.png");
+  opacity: 1;
+}
+
+@media (max-width: 900px) {
+  .coconet-overview .overview-hero::before {
+    inset: -5% -4%;
+    background-position: right center;
+    opacity: 1;
+  }
+}
+/* All other team components are intentionally unchanged. */
 
 /* End Anupama Styles */
 
@@ -4748,3 +4918,15 @@ a:focus-visible {
 
 
 /* End Janani Styles */
+/* RootFrond content-only compatibility: long NPK labels within old component sizes. */
+.coconet-overview .overview-result-card h2 { overflow-wrap: anywhere; }
+.coconet-overview .overview-result-card em { overflow-wrap: anywhere; }
+.rootfrond-form-status { color: var(--green-800); font-size: .82rem; line-height: 1.6; margin: 14px 0 0; }
+
+/* Minimal RootFrond content-fit correction for the original Janith layout at 320px. */
+@media (max-width: 420px) {
+  #how-it-works .showcase { width: 100%; min-width: 0; grid-template-columns: minmax(0, 1fr); }
+  #how-it-works .col { min-width: 0; }
+  #how-it-works .phone { width: min(300px, 100%); }
+  #how-it-works .step { min-width: 0; }
+}
